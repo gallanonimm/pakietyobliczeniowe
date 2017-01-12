@@ -53,7 +53,6 @@ function guii_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Choose default command line output for guii
 handles.output = hObject;
-
 % Update handles structure
 guidata(hObject, handles);
 
@@ -84,7 +83,6 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 axes(handles.axes1);
 cla;
-
 popup_sel_index = get(handles.popupmenu1, 'Value');
 switch popup_sel_index
     case 1
@@ -169,6 +167,19 @@ function start_Callback(hObject, eventdata, handles)
 % hObject    handle to start (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+vectorsTableData = get(handles.vectors, 'data');
+scalarsTableData = get(handles.scalars, 'data');
+B_strTab = vectorsTableData(1,:);
+E_strTab = vectorsTableData(2,:);
+v0 = vectorsTableData(3,:);
+r0 = vectorsTableData(4,:);
+m = scalarsTableData(1);
+q = scalarsTableData(2);
+t = scalarsTableData(3);
+dt = scalarsTableData(4);
+dr = scalarsTableData(5);
+
+
 
 
 % --- Executes on button press in stop.
