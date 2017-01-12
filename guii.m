@@ -167,20 +167,28 @@ function start_Callback(hObject, eventdata, handles)
 % hObject    handle to start (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-vectorsTableData = get(handles.vectors, 'data');
-scalarsTableData = get(handles.scalars, 'data');
-B_strTab = vectorsTableData(1,:);
-E_strTab = vectorsTableData(2,:);
-v0 = vectorsTableData(3,:);
-r0 = vectorsTableData(4,:);
-m = scalarsTableData(1);
-q = scalarsTableData(2);
-t = scalarsTableData(3);
-dt = scalarsTableData(4);
-dr = scalarsTableData(5);
+    vectorsTableData = get(handles.vectors, 'data');
+    scalarsTableData = get(handles.scalars, 'data');
+    B_strTab = char(vectorsTableData(1,:));
+    E_strTab = char(vectorsTableData(2,:));
+    v0 = cell2mat(vectorsTableData(3,:));
+    r0 = cell2mat(vectorsTableData(4,:))
+    m = scalarsTableData(1);
+    q = scalarsTableData(2);
+    t = scalarsTableData(3);
+    dt = scalarsTableData(4);
+    dr = scalarsTableData(5);
+    E = str3D2func(E_strTab);
+    B = str3D2func(B_strTab);
+    E{1}(1,1,1)
+    B{2}(1,1,1)
 
-
-
+function funcCellArray = str3D2func(strTab)
+    funcBeginning = '@(x,y,z)';
+    x = str2func(strcat(funcBeginning,strTab(1,:)));
+    y = str2func(strcat(funcBeginning,strTab(2,:)));
+    z = str2func(strcat(funcBeginning,strTab(3,:)));
+    funcCellArray = {x, y, z};
 
 % --- Executes on button press in stop.
 function stop_Callback(hObject, eventdata, handles)
