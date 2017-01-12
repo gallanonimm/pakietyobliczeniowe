@@ -172,16 +172,23 @@ function start_Callback(hObject, eventdata, handles)
     B_strTab = char(vectorsTableData(1,:));
     E_strTab = char(vectorsTableData(2,:));
     v0 = cell2mat(vectorsTableData(3,:));
-    r0 = cell2mat(vectorsTableData(4,:))
+    r0 = cell2mat(vectorsTableData(4,:));
     m = scalarsTableData(1);
     q = scalarsTableData(2);
-    t = scalarsTableData(3);
+    tmax = scalarsTableData(3);
     dt = scalarsTableData(4);
     dr = scalarsTableData(5);
     E = str3D2func(E_strTab);
     B = str3D2func(B_strTab);
-    E{1}(1,1,1)
-    B{2}(1,1,1)
+
+    %cos w tym stylu chyba, tylko nie mam sil juz tego testowac
+    f = @(t,v)[ v(4); v(5); v(6); 
+        q/m * (E{1}(v(1),v(2),v(3)) + v(5) * B{3}(v(1),v(2),v(3)) - v(6) * B{2}(v(1),v(2),v(3)));
+        q/m * (E{2}(v(1),v(2),v(3)) + v(6) * B{1}(v(1),v(2),v(3)) - v(4) * B{3}(v(1),v(2),v(3)));
+        q/m * (E{3}(v(1),v(2),v(3)) + v(4) * B{2}(v(1),v(2),v(3)) - v(5) * B{1}(v(1),v(2),v(3)));];
+    [tt, vv] = ode45(f,[0 tmax],[r0(1) r0(2) r0(3) v0(1) v0(2) v0(3)]);
+    %syms t
+    %ezplot3(vv(1), vv(2), vv(3),[0 tmax])
 
 function funcCellArray = str3D2func(strTab)
     funcBeginning = '@(x,y,z)';
